@@ -20,7 +20,7 @@ const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<TokenState>(() => {
-    const token = localStorage.getItem("@PermissionYT:token");
+    const token = localStorage.getItem("@PermissionsUser:token");
 
     if (token) {
       api.defaults.headers.authorization = `Bearer ${token}`;
@@ -41,12 +41,12 @@ const AuthProvider: React.FC = ({ children }) => {
 
     setToken(token);
 
-    localStorage.setItem("@PermissionYT:token", token);
+    localStorage.setItem("@PermissionsUser:token", token);
     api.defaults.headers.authorization = `Bearer ${token}`;
   }, []);
 
   const userLogged = useCallback(() => {
-    const token = localStorage.getItem("@PermissionYT:token");
+    const token = localStorage.getItem("@PermissionsUser:token");
     if (token) {
       return true;
     }

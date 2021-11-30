@@ -11,7 +11,7 @@ const Login: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    localStorage.removeItem("@PermissionYT:token");
+    localStorage.removeItem("@PermissionsUser:token");
   }, []);
 
   const { signIn } = useAuth();
