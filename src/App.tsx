@@ -1,7 +1,10 @@
+import { AuthProvider } from "./contexts/AuthContext";
+import { Login } from "./pages/Login";
+
 export function App() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <AuthProvider>
+      <Login />
+    </AuthProvider>
   );
 }
