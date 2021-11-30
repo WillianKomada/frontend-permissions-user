@@ -1,26 +1,35 @@
-import { useCallback, useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import React, { useCallback, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+
 import "./styles.css";
 
-export function Login() {
+const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signIn } = useContext(AuthContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    localStorage.removeItem("@PermissionYT:token");
+  }, []);
+
+  const { signIn } = useAuth();
 
   const handleSubmit = useCallback(
     async (event) => {
       event.preventDefault();
 
       await signIn({ username, password });
+      history.push("/dashboard");
     },
-    [username, password]
+    [username, password, signIn, history]
   );
 
   return (
     <form className="container" onSubmit={handleSubmit}>
       <div className="form-group">
-        <label htmlFor="">Usuário</label>
+        <label htmlFor="">Usuário </label>
         <input
           type="text"
           onChange={(event) => setUsername(event.target.value)}
@@ -36,8 +45,10 @@ export function Login() {
       </div>
 
       <div className="form-group">
-        <button type="submit">Entrar</button>
+        <button type="submit"> Entrar </button>
       </div>
     </form>
   );
-}
+};
+
+export default Login;
